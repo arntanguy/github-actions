@@ -10,7 +10,7 @@ sudo apt-get install -qq \
         packaging-dev cowbuilder git-build-recipe \
         debootstrap devscripts \
         git-buildpackage debian-archive-keyring unzip \
-        pkg-kde-tools dput python3-setuptools python-pip python3-pip
+        pkg-kde-tools dput python3-setuptools python-pip python3-pip wget
 
 cp -f `dirname $0`/pbuilderrc $HOME/.pbuilderrc
 sed -i "s/@DIST@/${DIST}/g" $HOME/.pbuilderrc
@@ -32,3 +32,6 @@ if [ ! -z ${ROS_DISTRO+x} ]; then
   echo "echo 'deb http://packages.ros.org/ros/ubuntu ${DIST} main' > /etc/apt/sources.list.d/ros-latest.list && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654" | \
     sudo cowbuilder --login --save-after-exec
 fi
+
+
+echo "apt-get -qq update && apt-get -qq install wget && wget -O /etc/apt/trusted.gpg.d/kitware-archive-latest.asc https://apt.kitware.com/keys/kitware-archive-latest.asc && echo 'deb https://apt.kitware.com/ubuntu ${DIST} main' > /etc/apt/sources.list.d/kitware-latest.list && apt-get -qq update && apt-get -qq install cmake" | sudo cowbuilder --login --save-after-exe
