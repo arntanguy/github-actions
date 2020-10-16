@@ -97,14 +97,18 @@ async function run()
     core.startGroup('Build');
     await exec.exec('cmake --build . --config ' + btype);
     core.endGroup();
-    core.startGroup('Install');
-    let install_cmd = 'cmake --build . --target install --config ' + btype;
-    if(sudo)
+    const skip_install = core.getInput('skip-install');
+    if(!skip_install.length)
     {
-      install_cmd = 'sudo ' + install_cmd;
+      core.startGroup('Install');
+      let install_cmd = 'cmake --build . --target install --config ' + btype;
+      if(sudo)
+      {
+        install_cmd = 'sudo ' + install_cmd;
+      }
+      await exec.exec(install_cmd);
+      core.endGroup();
     }
-    await exec.exec(install_cmd);
-    core.endGroup();
     core.startGroup('Test')
     if(process.platform === 'win32')
     {
