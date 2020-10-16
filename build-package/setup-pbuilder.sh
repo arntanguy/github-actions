@@ -34,4 +34,4 @@ if [ ! -z ${ROS_DISTRO+x} ]; then
 fi
 
 
-echo "apt-get -qq update && apt-get -qq install wget && wget -O /etc/apt/trusted.gpg.d/kitware-archive-latest.asc https://apt.kitware.com/keys/kitware-archive-latest.asc && echo 'deb https://apt.kitware.com/ubuntu ${DIST} main' > /etc/apt/sources.list.d/kitware-latest.list && apt-get -qq update && apt-get -qq install cmake" | sudo cowbuilder --login --save-after-exe
+echo "apt-get -qq update && apt-get -qq install wget && wget -O /etc/apt/trusted.gpg.d/kitware-archive-latest.asc https://apt.kitware.com/keys/kitware-archive-latest.asc && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 291F9FF6FD385783 && echo 'deb https://apt.kitware.com/ubuntu ${DIST} main' > /etc/apt/sources.list.d/kitware-latest.list && apt-get -qq update && apt-get -qq install cmake" | sudo cowbuilder --login --save-after-exe
