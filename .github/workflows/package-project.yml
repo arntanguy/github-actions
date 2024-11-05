@@ -255,7 +255,7 @@ jobs:
           sed -i -e"s/#ROS${ROS_VERSION} / /" ${FOUT}
         done
     - name: Build package
-      uses: jrl-umi3218/github-actions/build-package-native@master
+      uses: arntanguy/github-actions/build-package-native@topic/git
       with:
         dist: ${{ matrix.dist }}
         arch: ${{ matrix.arch }}
